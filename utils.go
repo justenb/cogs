@@ -10,6 +10,11 @@ import (
 )
 
 func ImportCsvFile(filename string) []*SshConfig {
+	/*  Import host(s) credentials from a csv file
+	 *  
+	 */
+
+
 	file, err := os.Open(filename)
 	if err != nil {
 		panic(err)
@@ -25,14 +30,17 @@ func ImportCsvFile(filename string) []*SshConfig {
 		panic(err)
 	}
 
+    // init a sshConfig object for each host
 	nodes := make([]*SshConfig, 0)
+	
 	for _, node := range rawData {
 		nodes = append(nodes, &SshConfig{Name: node[0], User: node[1], Password: node[2], Port: node[3]})
 	}
 
 	return nodes
-
 }
+
+
 
 func PathChomp(path string) string {
 	likePosix, err := regexp.Compile(".*/.*")
@@ -69,6 +77,7 @@ func PrependParent(root, path string) string {
 
 	return filepath.ToSlash(filepath.Join(root, droptop))
 }
+
 
 func GlobIn(s string) bool {
 	for _, b := range s {

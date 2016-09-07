@@ -12,7 +12,6 @@ var (
 	get      string
 	put      string
 	rpath    string
-	filter   string
 	key      string
 	csvFile  string
 	username string
@@ -53,8 +52,6 @@ func init() {
 	flag.StringVar(&key, "k", "", "shorthand for --key")
 
 	// misc options
-	flag.StringVar(&filter, "filter", "", "Grep like option for filtering command output and downloaded text based files. Think log filtering.")
-	flag.StringVar(&filter, "f", "", "shorthand for --filter")
 	flag.IntVar(&maxprocs, "maxprocs", 0, "Max num of OS threads used to execute the operation.")
 	flag.IntVar(&maxprocs, "max", 1, "shorthand for --maxprocs")
 	flag.BoolVar(&shell, "shell", true, "Executes Bash shell in login mode")
@@ -64,7 +61,7 @@ func init() {
 
 func main() {
 	env := &Enviroment{}
-	env.SetEnv(csvFile, hosts, filter, key, username, port, maxprocs, shell)
+	env.SetEnv(csvFile, hosts, key, username, port, maxprocs, shell)
 
 	if hosts != "" && csvFile != "" {
 		usage()
